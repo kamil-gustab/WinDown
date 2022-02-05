@@ -56,7 +56,7 @@ class Window(QMainWindow):
         self.label = QLabel(self)
 
         # setting geometry of label
-        self.label.setGeometry(75, 100, 250, 70)
+        self.label.setGeometry(125, 100, 150, 70)
 
         # adding border to the label
         self.label.setStyleSheet("border : 4px solid black;")
@@ -73,47 +73,61 @@ class Window(QMainWindow):
 
         # managing hours
         hour_plus = QPushButton("+", self)
-        hour_plus.setGeometry(170, 60, 30, 30)
-        hour_plus.pressed.connect(self.Hour_operation)
+        hour_plus.setGeometry(160, 60, 30, 30)
+        hour_plus.pressed.connect(self.Hour_plus)
 
         hour_minus = QPushButton("-", self)
-        hour_minus.setGeometry(170, 180, 30, 30)
-        hour_minus.pressed.connect(self.Hour_operation)
+        hour_minus.setGeometry(160, 180, 30, 30)
+        hour_minus.pressed.connect(self.Hour_minus)
 
         # managing minutes
         min_plus = QPushButton("+", self)
-        min_plus.setGeometry(230, 60, 30, 30)
-        min_plus.pressed.connect(self.Min_operation)
+        min_plus.setGeometry(210, 60, 30, 30)
+        min_plus.pressed.connect(self.Min_plus)
 
         min_minus = QPushButton("-", self)
-        min_minus.setGeometry(230, 180, 30, 30)
-        min_minus.pressed.connect(self.Min_operation)
+        min_minus.setGeometry(210, 180, 30, 30)
+        min_minus.pressed.connect(self.Min_minus)
 
         # creating reset button
         re_set = QPushButton("Re-set", self)
 
         # setting geometry to the button
-        re_set.setGeometry(125, 350, 150, 40)
+        re_set.setGeometry(125, 420, 150, 40)
 
         # add action to the method
         re_set.pressed.connect(self.Re_set)
 
 
-    # method called by timer
     def showTime(self):
         time_now = f'{(self.hour):02d}:{(self.minute):02d}'
         self.label.setText(time_now)
 
-    def Hour_operation(self, operator=1):
-        self.hour += operator
-        time_now = f'{(self.hour):02d}:{(self.minute):02d}'
-        self.label.setText(time_now)
+    # Hour operations
+    def Hour_plus(self):
+        if self.hour != 23:
+            self.hour += 1
+            time_now = f'{(self.hour):02d}:{(self.minute):02d}'
+            self.label.setText(time_now)
 
-    def Min_operation(self, operator=1):
-        # making flag to False
-        self.minute += operator
-        time_now = f'{(self.hour):02d}:{(self.minute):02d}'
-        self.label.setText(time_now)
+    def Hour_minus(self):
+        if self.hour != 0:
+            self.hour -= 1
+            time_now = f'{(self.hour):02d}:{(self.minute):02d}'
+            self.label.setText(time_now)
+
+    # Minutes operations
+    def Min_plus(self):
+        if self.minute != 59:
+            self.minute += 1
+            time_now = f'{(self.hour):02d}:{(self.minute):02d}'
+            self.label.setText(time_now)
+
+    def Min_minus(self):
+        if self.minute != 0:
+            self.minute -= 1
+            time_now = f'{(self.hour):02d}:{(self.minute):02d}'
+            self.label.setText(time_now)
 
     def Re_set(self):
         # making flag to false
@@ -121,6 +135,7 @@ class Window(QMainWindow):
 
         # reseeting the hour
         self.hour = 0
+        self.minute = 0
 
         # setting text to label
         # self.label.setText(str(self.hour))
@@ -131,7 +146,6 @@ if __name__ == '__main__':
 
     # print("Current Time =", datetime.now().strftime("%H:%M"))
 
-    # create pyqt5 app
     App = QApplication(sys.argv)
     window = Window()
     sys.exit(App.exec())
