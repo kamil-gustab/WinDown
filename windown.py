@@ -49,7 +49,7 @@ class Window(QMainWindow):
 
     # method for widgets
     def UiComponents(self):
-        self.hour = int(datetime.now().strftime("%H"))-3
+        self.hour = int(datetime.now().strftime("%H"))
         self.minute = int(datetime.now().strftime("%M"))
 
         # self.lineEdit = QtWidgets.QLineEdit(self.centralwidget)
@@ -75,20 +75,20 @@ class Window(QMainWindow):
         # managing hours
         hour_plus = QPushButton("+", self)
         hour_plus.setGeometry(160, 60, 30, 30)
-        hour_plus.pressed.connect(self.Hour_plus)
+        hour_plus.pressed.connect(self.hour_plus)
 
         hour_minus = QPushButton("-", self)
         hour_minus.setGeometry(160, 180, 30, 30)
-        hour_minus.pressed.connect(self.Hour_minus)
+        hour_minus.pressed.connect(self.hour_minus)
 
         # managing minutes
         min_plus = QPushButton("+", self)
         min_plus.setGeometry(210, 60, 30, 30)
-        min_plus.pressed.connect(self.Min_plus)
+        min_plus.pressed.connect(self.min_plus)
 
         min_minus = QPushButton("-", self)
         min_minus.setGeometry(210, 180, 30, 30)
-        min_minus.pressed.connect(self.Min_minus)
+        min_minus.pressed.connect(self.min_minus)
 
         # creating reset button
         reset_button = QPushButton("Reset", self)
@@ -99,7 +99,7 @@ class Window(QMainWindow):
         go_button.setGeometry(125, 370, 150, 40)
 
         # add action to the method
-        reset_button.pressed.connect(self.Re_set)
+        reset_button.pressed.connect(self.reset_time)
 
         # # label
         # self.testlabel = QLabel(self)
@@ -115,35 +115,35 @@ class Window(QMainWindow):
         self.time_box.setText(time_now)
 
     # Hour operations
-    def Hour_plus(self):
+    def hour_plus(self):
         if self.hour < 23:
             self.hour += 1
             time_now = f'{(self.hour):02d}:{(self.minute):02d}'
             self.time_box.setText(time_now)
 
-    def Hour_minus(self):
+    def hour_minus(self):
         if self.hour > 0:
             self.hour -= 1
             time_now = f'{(self.hour):02d}:{(self.minute):02d}'
             self.time_box.setText(time_now)
 
     # Minutes operations
-    def Min_plus(self):
+    def min_plus(self):
         if self.minute < 59:
             self.minute += 1
             time_now = f'{(self.hour):02d}:{(self.minute):02d}'
             self.time_box.setText(time_now)
 
-    def Min_minus(self):
+    def min_minus(self):
         if self.minute > 0:
             self.minute -= 1
             time_now = f'{(self.hour):02d}:{(self.minute):02d}'
             self.time_box.setText(time_now)
 
-    def Re_set(self):
+    def reset_time(self):
         # reseeting the hour
-        self.hour = 0
-        self.minute = 0
+        self.hour = int(datetime.now().strftime("%H"))
+        self.minute = int(datetime.now().strftime("%M"))
 
         # setting text to time_box
         time_now = f'{(self.hour):02d}:{(self.minute):02d}'
