@@ -11,7 +11,7 @@ class Window(QMainWindow):
         super().__init__()
         self.setWindowTitle("WinDown")
         self.setGeometry(100, 100, 400, 500)
-        self.UiComponents()
+        self.uicomponents()
         self.show()
         self.hour = int(datetime.now().strftime("%H"))
 
