@@ -1,12 +1,13 @@
-from datetime import datetime
-from PyQt5.QtWidgets import *
-from PyQt5.QtGui import *
 import operations
 import sys
+from datetime import datetime
+from PyQt5.QtGui import QFont
+from PyQt5.QtWidgets import \
+    QApplication, QInputDialog, QLineEdit,\
+    QMainWindow, QMessageBox, QPushButton
 
 
 class Window(QMainWindow):
-
     def __init__(self):
         super().__init__()
         self.setWindowTitle("WinDown")
@@ -91,8 +92,8 @@ class Window(QMainWindow):
         self.time_box.setText(shown_time)
 
     def show_input(self):
-        text, pressed = QInputDialog.getText(self, 'Time', 'Use "HH:MM" format.',
-                                             QLineEdit.Normal, '')
+        text, pressed = QInputDialog.getText(
+            self, 'Time', 'Use "HH:MM" format.', QLineEdit.Normal, '')
 
         try:
             if pressed:
@@ -106,7 +107,9 @@ class Window(QMainWindow):
                     shown_time = f'{self.hour:02d}:{self.minute:02d}'
                     self.time_box.setText(shown_time)
         except ValueError:
-            QMessageBox.about(self, 'Error', 'Wrong time format.\nUse format: "HH:MM"\neg. 21:37')
+            QMessageBox.about(self, 'Error',
+                              'Wrong time format.\n'
+                              'Use format: "HH:MM"\neg. 21:37')
 
     def request_shutdown(self):
         # translating string to datetime object
